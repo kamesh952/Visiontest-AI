@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VisionText AI - Text-Behind-Image Editor | Free Online Tool</title>
+    <meta name="description" content="Create professional text-behind-image designs in seconds. Free online editor with AI-powered background removal.">
+       <link rel="icon" type="image/png" href="k.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="k.png" />
+    <style>
+      :root {
+        --primary: #7c3aed;
+        --primary-dark: #5b21b6;
+        --primary-light: #8b5cf6;
+        --secondary: #10b981;
+        --white: #ffffff;
+        --dark: #0f172a;
+        --light: #f8fafc;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --accent: #f97316;
+        --accent-dark: #ea580c;
+        --success: #10b981;
+        --error: #ef4444;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --rounded-sm: 0.25rem;
+        --rounded: 0.5rem;
+        --rounded-md: 0.75rem;
+        --rounded-lg: 1rem;
+        --rounded-xl: 1.25rem;
+        --rounded-full: 9999px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+        padding-top: 80px;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 1rem 0;
+        background-color: var(--white);
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: var(--shadow);
+      }
+
+      .navbar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+        font-family: "Outfit", sans-serif;
+      }
+
+      .logo-icon {
+        font-size: 1.8rem;
+        color: var(--accent);
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        position: relative;
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease;
+        font-family: "Outfit", sans-serif;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .nav-cta {
+        display: inline-block;
+        background-color: var(--primary);
+        color: var(--white);
+        padding: 16px 64px;
+        width: auto;
+        min-width: 100px;
+        border-radius: var(--rounded);
+        transition: all 0.3s ease;
+        font-family: "Outfit", sans-serif;
+        font-weight: 500;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .nav-cta:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-cta::after {
+        display: none;
+      }
+
+      /* Mobile menu toggle */
+      .menu-toggle {
+        display: none;
+        cursor: pointer;
+        z-index: 1001;
+      }
+
+      .menu-toggle .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: var(--dark);
+        transition: all 0.3s ease;
+      }
+
+      /* Main content */
+      .main-container {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+      }
+
+      /* Hero section */
+      .hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10rem 0;
+  min-height: 60vh;
+  position: relative;
+  overflow: hidden;
+  background: url("remove_image_background (1).jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 3rem;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgb(34, 3, 126);
+  background-size: 400% 400%;
+  animation: gradientFlow 12s ease infinite;
+  z-index: 0;
+}
+
+.hero * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+      .hero h1 {
+        font-size: 5.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 600px;
+        margin: 0 auto 2.5rem;
+     }
+
+      @media (min-width: 768px) {
+        
+        .hero h1 {
+          font-size: 3rem;
+        }
+
+        .hero p {
+          font-size: 1.2rem;
+        }
+      }
+
+      /* Editor Section */
+      .editor-section {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+      }
+
+      @media (min-width: 992px) {
+        .editor-section {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* Image and Upload sections */
+     .upload-section {
+        width: 100%;
+        height: 520px;
+        background: var(--white);
+        border-radius: var(--rounded-xl);
+        box-shadow: var(--shadow);
+        padding: 60px;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+       .image-section{
+        padding: 2px;
+         width: 100%;
+        height: 520px;
+        background: var(--white);
+        border-radius: var(--rounded-xl);
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+       }
+
+      .image-section:hover, .upload-section:hover {
+        transform: translateY(-5px);
+      }
+
+      .image-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        overflow: hidden;
+      }
+
+      .main-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: var(--rounded-lg);
+      }
+
+      .upload-area {
+        flex: 1;
+        background-color: var(--white);
+        padding: 2rem;
+        width: 100%;
+        border-radius: var(--rounded-lg);
+        text-align: center;
+        border: 2px dashed var(--gray-light);
+        color: var(--gray);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .upload-area:hover {
+        border-color: var(--primary);
+        background-color: rgba(124, 58, 237, 0.03);
+      }
+
+      .upload-area i {
+        font-size: 3rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+      }
+
+      .upload-area h3 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 0.75rem;
+      }
+
+      .upload-area p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .upload-btn {
+        background-color: var(--primary);
+        color: var(--white);
+        padding: 0.75rem 1.75rem;
+        border-radius: var(--rounded);
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 1rem;
+       
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "Outfit", sans-serif;
+      }
+
+      .upload-btn:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+
+      .upload-btn i {
+        font-size: 1rem;
+        margin: 0;
+         color: #ffffff;
+      }
+
+      /* Preview and Controls Container */
+      .preview-controls-container {
+        grid-column: 1 / -1;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Preview container */
+      .preview-container {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        margin: 0 auto 40px;
+        border-radius: var(--rounded-lg);
+        background: repeating-conic-gradient(#f8f9fa 0% 25%, white 0% 50%) 50%/20px 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        display: none;
+      }
+
+      .layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #backgroundLayer {
+        z-index: 1;
+      }
+
+      #textLayer {
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      #objectLayer {
+        z-index: 3;
+      }
+
+      #backgroundImage, #objectImage {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      #backgroundText {
+        font-size: 4rem;
+        font-weight: 800;
+        text-align: center;
+        padding: 20px;
+        word-break: break-word;
+        max-width: 90%;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      }
+
+      /* Controls */
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 32px;
+        display: none;
+      }
+
+      .control-group {
+        background: var(--white);
+        border-radius: var(--rounded-lg);
+        padding: 24px;
+        border: 1px solid rgba(168, 85, 247, 0.1);
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .control-group:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+      }
+
+      .control-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 0.9rem;
+      }
+
+      input[type="text"], input[type="number"], select {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid var(--light-gray);
+        border-radius: var(--rounded);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+        font-family: 'Outfit', sans-serif;
+      }
+
+      input[type="text"]:focus, input[type="number"]:focus, select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+      }
+
+      input[type="color"] {
+        width: 100%;
+        height: 50px;
+        border: 2px solid var(--light-gray);
+        border-radius: var(--rounded);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        height: 8px;
+        border-radius: 4px;
+        background: linear-gradient(to right, #e9d5ff, var(--primary));
+        outline: none;
+        -webkit-appearance: none;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+      }
+
+      .action-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        display: none;
+      }
+
+      .btn:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .loading {
+        position: relative;
+        color: transparent;
+      }
+
+      .loading::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* Status Messages */
+      .status {
+        padding: 12px 16px;
+        border-radius: var(--rounded);
+        margin-top: 16px;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .status.success {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #059669;
+      }
+
+      .status.error {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #dc2626;
+      }
+
+      .status.info {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        color: #2563eb;
+      }
+
+      .range-value {
+        display: inline-block;
+        margin-left: 8px;
+        font-weight: 600;
+        color: var(--primary);
+      }
+
+      /* Features section */
+      .section-title {
+        text-align: center;
+        margin: 5rem 0 3rem;
+      }
+
+      .section-title h2 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 1.25rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border-radius: 2px;
+      }
+
+      .section-title p {
+        color: var(--gray);
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+
+      /* Features grid */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+
+      .feature-card {
+        background: var(--white);
+        border-radius: var(--rounded-xl);
+        box-shadow: var(--shadow);
+        padding: 2rem;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 1rem;
+      }
+
+      .feature-card p {
+        color: var(--gray);
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+        line-height: 1.7;
+      }
+
+      .feature-image {
+        width: 100%;
+        border-radius: var(--rounded);
+        margin-top: auto;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.3s ease;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+
+      .feature-card:hover .feature-image {
+        transform: scale(1.02);
+      }
+
+      /* CTA section */
+      .cta-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        color: var(--white);
+        padding: 5rem 2rem;
+        border-radius: var(--rounded-xl);
+        text-align: center;
+        margin: 5rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-section::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+      }
+
+      .cta-section::after {
+        content: "";
+        position: absolute;
+        bottom: -80px;
+        left: -80px;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+      }
+
+      .cta-content {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .cta-content h2 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-content p {
+        font-size: 1.15rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.9;
+        line-height: 1.7;
+      }
+
+      .cta-btn {
+        background-color: var(--white);
+        color: var(--primary);
+        padding: 0.85rem 2.25rem;
+        border-radius: var(--rounded);
+        font-weight: 600;
+        font-size: 1.1rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: var(--shadow);
+        font-family: "Outfit", sans-serif;
+      }
+
+      .cta-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        background-color: var(--light);
+      }
+
+      .cta-btn i {
+        font-size: 1rem;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        color: var(--white);
+        padding: 5rem 0 2rem;
+        margin-top: 5rem;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 4rem;
+      }
+
+      .footer-section {
+        padding: 0 1rem;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 1.5rem;
+        text-decoration: none;
+        font-family: "Outfit", sans-serif;
+      }
+
+      .footer-logo i {
+        color: var(--accent);
+      }
+
+      .footer-about p {
+        color: var(--gray-light);
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      .footer-section h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.75rem;
+        font-family: "Outfit", sans-serif;
+      }
+
+      .footer-section h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: var(--accent);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: var(--gray-light);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        line-height: 1.6;
+      }
+
+      .footer-links a:hover {
+        color: var(--accent);
+      }
+
+      .footer-links a i {
+        font-size: 0.8rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+      }
+
+      .social-links a:hover {
+        background-color: var(--accent);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gray-light);
+        font-size: 0.9rem;
+      }
+
+      .footer-bottom p {
+        margin-bottom: 0.75rem;
+      }
+
+      .language-selector {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .language-selector a {
+        color: var(--gray-light);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.3s ease;
+      }
+
+      .language-selector a:hover {
+        color: var(--accent);
+      }
+
+      /* Responsive styles */
+      @media (max-width: 1200px) {
+        .container {
+          padding: 0 2rem;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .upload-section {
+          width: 100%;
+        }
+
+        .footer-container {
+          gap: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 0;
+          left: -100%;
+          width: 80%;
+          max-width: 300px;
+          height: 100vh;
+          flex-direction: column;
+          background-color: var(--white);
+          padding: 5rem 2rem 2rem;
+          transition: all 0.3s ease;
+          box-shadow: var(--shadow-lg);
+          z-index: 1000;
+        }
+
+        .nav-links.active {
+          left: 0;
+        }
+
+        .nav-links li {
+          margin: 0.5rem 0;
+          width: 100%;
+        }
+
+        .nav-links a {
+          display: block;
+          padding: 0.75rem 1rem;
+          border-radius: var(--rounded-sm);
+        }
+
+        .nav-links a:hover {
+          background-color: var(--light);
+        }
+
+        .nav-cta {
+          width: 100%;
+          text-align: center;
+          margin-top: 1rem;
+        }
+
+        .hero h1 {
+          font-size: 2.25rem;
+        }
+
+        .hero p {
+          font-size: 1.05rem;
+        }
+
+        .section-title h2 {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          margin: 4rem 0 2rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .cta-content h2 {
+          font-size: 2rem;
+        }
+
+        .cta-section {
+          padding: 4rem 1.5rem;
+          margin: 4rem 0;
+        }
+
+        footer {
+          padding: 4rem 0 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .container {
+          padding: 0 1.5rem;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .section-title h2 {
+          font-size: 1.8rem;
+        }
+
+        .cta-content h2 {
+          font-size: 1.8rem;
+        }
+
+        .footer-container {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-section {
+          padding: 0;
+        }
+      }
+
+      /* Animation for menu toggle */
+      .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+      
+      /* Image section */
+      .image-section {
+        flex: 1;
+        background: var(--white);
+        padding: 1.5rem;
+        border-radius: var(--rounded-xl);
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        min-width: 50%;
+      }
+
+      .image-section:hover {
+        transform: translateY(-5px);
+      }
+
+      .image-wrapper {
+        border-radius: var(--rounded-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        position: relative;
+        aspect-ratio: 16/9;
+      }
+
+      .main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .image-wrapper:hover .main-image {
+        transform: scale(1.02);
+      }
+
+      .text-content {
+        text-align: left;
+        margin-top: 1.5rem;
+      }
+
+      .text-content h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 0.75rem;
+      }
+
+      .text-content p {
+        color: var(--gray);
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="container navbar-container">
+        <a href="#" class="logo">
+          <i class="fas fa-eye logo-icon"></i>
+          Vision<span>Text</span>
+        </a>
+
+        <div class="menu-toggle">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#editor">Editor</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#uses">Use Cases</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#editor" class="nav-cta">Get Started</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <h1>Create Stunning Text-Behind-Image Designs</h1>
+        <p>
+          VisionText uses advanced AI to automatically create professional designs with text seamlessly integrated behind your subject. No design skills required!
+        </p>
+        <button
+          class="cta-btn pulse"
+          onclick="document.getElementById('imageUpload').click()"
+        >
+          <i class="fas fa-upload"></i> Upload Image Now
+        </button>
+      </div>
+    </section>
+
+    <!-- Editor Section -->
+    <div class="container">
+      <div class="editor-section" id="editor">
+        <!-- Example Image Section -->
+        <div class="image-section">
+          <div class="image-wrapper">
+            <img
+              src="https://www.designpieces.com/assets/wp-content/uploads/2018/05/selfie-time-blog-800.jpg"  alt="Example of text behind image"
+              class="main-image"
+            />
+          </div>
+           <div class="text-content">
+            <h1>Professional Text-Behind-Image Designs</h1>
+            <p>
+              Get clean, precise cuts with our  text behind your subject. Perfect for social media, marketing materials, and more.
+            </p>
+            <div class="tooltip">
+              <span class="tooltiptext"
+                >Supports JPG, PNG, and WEBP formats</span
+              >
+              <i class="fas fa-info-circle" style="color: var(--primary)"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-section">
+          <div
+            class="upload-area"
+            id="uploadArea"
+            onclick="document.getElementById('imageUpload').click()"
+          >
+            <input
+              type="file"
+              id="imageUpload"
+              style="display: none"
+              accept="image/*"
+            />
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h3>Upload Your Image</h3>
+            <p>Drag & drop your image here or click to browse</p>
+            <button class="upload-btn">
+              <i class="fas fa-folder-open"></i> Select File
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview and Controls Container -->
+      <div class="preview-controls-container">
+        <div class="preview-container" id="previewContainer">
+          <!-- Background Layer (z-index: 1) -->
+          <div class="layer" id="backgroundLayer">
+            <img id="backgroundImage" class="hidden">
+          </div>
+          
+          <!-- Text Layer (z-index: 2) -->
+          <div class="layer" id="textLayer">
+            <div id="backgroundText">Your Text Here</div>
+          </div>
+          
+          <!-- Foreground Object Layer (z-index: 3) -->
+          <div class="layer" id="objectLayer">
+            <img id="objectImage" class="hidden">
+          </div>
+        </div>
+
+        <div class="controls" id="controls">
+          <div class="control-group">
+            <div class="control-title">
+              <i class="fas fa-font"></i>
+              Text Content
+            </div>
+            <label for="textInput">Text</label>
+            <input type="text" id="textInput" value="Your Text Here" placeholder="Enter your text">
+            
+            <label for="fontFamily">Font</label>
+            <select id="fontFamily">
+              <option value="Outfit, sans-serif">Standard (Outfit)</option>
+              <option value="'Dancing Script', cursive">Dancing Script</option>
+              <option value="'Pacifico', cursive">Pacifico</option>
+              <option value="'Caveat', cursive">Caveat</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-title">
+              <i class="fas fa-paint-brush"></i>
+              Text Style
+            </div>
+            <label for="textColor">Color</label>
+            <input type="color" id="textColor" value="#ffffff">
+            
+            <label for="textSize">Size <span class="range-value" id="sizeValue">64px</span></label>
+            <input type="range" id="textSize" min="20" max="200" value="64">
+            
+            <label for="textOpacity">Opacity <span class="range-value" id="opacityValue">90%</span></label>
+            <input type="range" id="textOpacity" min="0" max="100" value="90">
+          </div>
+
+          <div class="control-group">
+            <div class="control-title">
+              <i class="fas fa-arrows-alt"></i>
+              Text Position
+            </div>
+            <div class="position-controls">
+              <div class="position-control">
+                <div class="position-label">
+                  <label for="textX">Horizontal</label>
+                  <span class="range-value" id="xValue">50%</span>
+                </div>
+                <input type="range" id="textX" min="0" max="100" value="50">
+              </div>
+              <div class="position-control">
+                <div class="position-label">
+                  <label for="textY">Vertical</label>
+                  <span class="range-value" id="yValue">50%</span>
+                </div>
+                <input type="range" id="textY" min="0" max="100" value="50">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons" id="actionButtons">
+          <button
+            id="processBtn"
+            class="action-btn remove-btn"
+            onclick="processImage()"
+          >
+            <i class="fas fa-magic"></i> Create Text-Behind Effect
+          </button>
+          <button
+            id="downloadBtn"
+            class="action-btn download-btn"
+            onclick="downloadComposition()"
+            disabled
+          >
+            <i class="fas fa-download"></i> Download
+          </button>
+        </div>
+        
+        <div id="uploadStatus" class="status hidden"></div>
+      </div>
+    </div>
+
+    <!-- Use Cases Section -->
+    <div class="container">
+      <div class="section-title" id="uses">
+        <h2>Use Cases</h2>
+        <p>See how VisionText can transform your images for various purposes</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-shopping-bag feature-icon"></i>
+          <h3>E-commerce Products</h3>
+          <p>
+            Create eye-catching product images with text behind your items to highlight promotions or features.
+          </p>
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" class="feature-image" alt="E-commerce use case">
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-portrait feature-icon"></i>
+          <h3>Portrait Photography</h3>
+          <p>
+            Add depth to your portraits by placing text behind your subject for a professional look.
+          </p>
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" class="feature-image" alt="Portrait use case">
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-ad feature-icon"></i>
+          <h3>Marketing Materials</h3>
+          <p>
+            Create stunning visuals for ads, social media, and presentations with text behind your main subject.
+          </p>
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1099&q=80" class="feature-image" alt="Marketing use case">
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container">
+      <div class="section-title" id="features">
+        <h2>Powerful Features</h2>
+        <p>Discover what makes VisionText the best text-behind-image creator online</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-bolt feature-icon"></i>
+          <h3>AI-Powered Background Removal</h3>
+          <p>
+            Our advanced AI automatically detects and removes backgrounds, keeping only your main subject for perfect text integration.
+          </p>
+          <img src="https://www.phoca.cz/images/blog/place-text-behind-object-blog.jpg" class="feature-image" alt="Fast processing" />
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-text-height feature-icon"></i>
+          <h3>Customizable Text</h3>
+          <p>
+            Choose from beautiful fonts, colors, sizes and positions to make your text stand out exactly how you want.
+          </p>
+          <img src="https://i.ytimg.com/vi/3Y0fZYmtgNk/maxresdefault.jpg" class="feature-image" alt="Precision cuts" />
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-cloud-upload-alt feature-icon"></i>
+          <h3>Easy to Use</h3>
+          <p>
+            Just upload your image, add text, and download your design. No design skills needed for professional results.
+          </p>
+          <img
+            src="https://ph-files.imgix.net/4f8ef559-58b7-40c6-ba8b-8388258c2c79.png?auto=compress&codec=mozjpeg&cs=strip&auto=format&w=350&h=210&fit=max&frame=1"
+            class="feature-image"
+            alt="Background customization"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="container">
+      <div class="cta-section">
+        <div class="cta-content">
+          <h2>Ready to Transform Your Images?</h2>
+          <p>
+            Join thousands of users who trust VisionText for their text-behind-image designs. No credit card required.
+          </p>
+          <button
+            class="cta-btn"
+            onclick="document.getElementById('imageUpload').click()"
+          >
+            <i class="fas fa-magic"></i> Create Design Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-section">
+            <a href="#" class="footer-logo">
+              <i class="fas fa-eye"></i>
+              VisionText
+            </a>
+            <div class="footer-about">
+              <p>
+                VisionText is an AI-powered editor that helps individuals and businesses create professional-looking text-behind-image designs in seconds.
+              </p>
+            </div>
+            <div class="social-links">
+              <a
+                href="https://www.instagram.com/kameshcrush96/"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="https://github.com/kamesh952" aria-label="GitHub"
+                ><i class="fab fa-github"></i
+              ></a>
+             </a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="#home"><i class="fas fa-chevron-right"></i> Home</a>
+              </li>
+              <li>
+                <a href="#editor"
+                  ><i class="fas fa-chevron-right"></i> Editor</a
+                >
+              </li>
+              <li>
+                <a href="#features"
+                  ><i class="fas fa-chevron-right"></i> Features</a
+                >
+              </li>
+              <li>
+                <a href="#uses"
+                  ><i class="fas fa-chevron-right"></i> Use Cases</a
+                >
+              </li>
+              <li>
+                <a href="#contact"
+                  ><i class="fas fa-chevron-right"></i> Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Resources</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="#"><i class="fas fa-chevron-right"></i> Help Center</a>
+              </li>
+              <li>
+                <a href="#"><i class="fas fa-chevron-right"></i> Tutorials</a>
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right"></i> API Documentation</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right"></i> Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right"></i> Terms of Service</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="language-selector">
+            <a href="#">English</a>
+            <a href="#">中文</a>
+            <a href="#">日本語</a>
+            <a href="#">Español</a>
+            <a href="#">Français</a>
+            <a href="#">Deutsch</a>
+            <a href="#">हिन्दी</a>
+          </div>
+          <p>© 2025 VisionText. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // DOM Elements
+      const uploadArea = document.getElementById('uploadArea');
+      const imageUpload = document.getElementById('imageUpload');
+      const textInput = document.getElementById('textInput');
+      const textColor = document.getElementById('textColor');
+      const textOpacity = document.getElementById('textOpacity');
+      const textSize = document.getElementById('textSize');
+      const fontFamily = document.getElementById('fontFamily');
+      const textX = document.getElementById('textX');
+      const textY = document.getElementById('textY');
+      const backgroundText = document.getElementById('backgroundText');
+      const backgroundImage = document.getElementById('backgroundImage');
+      const objectImage = document.getElementById('objectImage');
+      const processBtn = document.getElementById('processBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const uploadStatus = document.getElementById('uploadStatus');
+      const sizeValue = document.getElementById('sizeValue');
+      const opacityValue = document.getElementById('opacityValue');
+      const xValue = document.getElementById('xValue');
+      const yValue = document.getElementById('yValue');
+      const previewContainer = document.getElementById('previewContainer');
+      const controls = document.getElementById('controls');
+      const actionButtons = document.getElementById('actionButtons');
+      
+      // API Configuration
+      const API_KEY = 'DVHfe299hJe98W7AaUAAfcoR';
+      const API_URL = 'https://api.remove.bg/v1.0/removebg';
+      
+      // State
+      let originalImageUrl = null;
+      let processedImageUrl = null;
+      let uploadedFile = null;
+      let isProcessed = false;
+      
+      // Upload area drag and drop
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+      });
+
+      uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+      });
+
+      uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          handleFile(files[0]);
+        }
+      });
+
+      uploadArea.addEventListener('click', () => {
+        imageUpload.click();
+      });
+
+      // Event Listeners
+      imageUpload.addEventListener('change', (e) => {
+        if (e.target.files[0]) {
+          handleFile(e.target.files[0]);
+        }
+      });
+
+      textInput.addEventListener('input', updateText);
+      textColor.addEventListener('input', updateText);
+      textOpacity.addEventListener('input', updateText);
+      textSize.addEventListener('input', updateText);
+      fontFamily.addEventListener('change', updateText);
+      textX.addEventListener('input', updateTextPosition);
+      textY.addEventListener('input', updateTextPosition);
+      processBtn.addEventListener('click', processImage);
+      downloadBtn.addEventListener('click', downloadComposition);
+
+      // Range value updates
+      textSize.addEventListener('input', () => {
+        sizeValue.textContent = textSize.value + 'px';
+      });
+
+      textOpacity.addEventListener('input', () => {
+        opacityValue.textContent = textOpacity.value + '%';
+      });
+
+      textX.addEventListener('input', () => {
+        xValue.textContent = textX.value + '%';
+      });
+
+      textY.addEventListener('input', () => {
+        yValue.textContent = textY.value + '%';
+      });
+      
+      // Functions
+      function handleFile(file) {
+        if (!file.type.startsWith('image/')) {
+          showStatus('Please select a valid image file.', 'error');
+          return;
+        }
+
+        uploadedFile = file;
+        isProcessed = false;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          originalImageUrl = event.target.result;
+          
+          // Set original image as background
+          backgroundImage.src = originalImageUrl;
+          backgroundImage.classList.remove('hidden');
+          
+          // Hide foreground object until processed
+          objectImage.classList.add('hidden');
+          processedImageUrl = null;
+          
+          // Enable processing but disable download until processed
+          processBtn.disabled = false;
+          downloadBtn.disabled = true;
+          
+          // Update upload area
+          uploadArea.innerHTML = `
+            <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success);"></i>
+            <h3>Image loaded successfully!</h3>
+            <p>Click to change image</p>
+          `;
+          
+          // Show preview and controls
+          previewContainer.style.display = 'block';
+          controls.style.display = 'grid';
+          actionButtons.style.display = 'grid';
+          
+          showStatus('Image loaded! Click "Create Text-Behind Effect" to process.', 'info');
+        };
+        reader.readAsDataURL(file);
+      }
+      
+      function updateText() {
+        backgroundText.textContent = textInput.value;
+        const opacityHex = Math.floor(textOpacity.value * 2.55).toString(16).padStart(2, '0');
+        backgroundText.style.color = `${textColor.value}${opacityHex}`;
+        backgroundText.style.fontSize = `${textSize.value}px`;
+        backgroundText.style.fontFamily = fontFamily.value;
+      }
+      
+      function updateTextPosition() {
+        backgroundText.style.left = `${textX.value}%`;
+        backgroundText.style.top = `${textY.value}%`;
+        backgroundText.style.transform = 'translate(-50%, -50%)';
+        backgroundText.style.position = 'absolute';
+      }
+      
+      async function processImage() {
+        if (!uploadedFile) {
+          showStatus('Please upload an image first', 'error');
+          return;
+        }
+        
+        processBtn.classList.add('loading');
+        processBtn.innerHTML = '<span class="spinner"></span>Processing...';
+        processBtn.disabled = true;
+        
+        showStatus('Creating text-behind effect... This may take a few seconds.', 'info');
+        
+        try {
+          const formData = new FormData();
+          formData.append('image_file', uploadedFile);
+          formData.append('size', 'auto');
+          
+          const apiResponse = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+              'X-Api-Key': API_KEY
+            },
+            body: formData
+          });
+          
+          if (!apiResponse.ok) {
+            throw new Error(`API Error: ${apiResponse.status}`);
+          }
+          
+          const blob = await apiResponse.blob();
+          processedImageUrl = URL.createObjectURL(blob);
+          
+          // Now show the processed image as foreground object
+          objectImage.src = processedImageUrl;
+          objectImage.classList.remove('hidden');
+          
+          isProcessed = true;
+          downloadBtn.disabled = false;
+          
+          showStatus('Text-behind effect created successfully! Background shows behind text, subject appears in front.', 'success');
+          
+          // Change process button to success state briefly
+          processBtn.innerHTML = '<i class="fas fa-check"></i> Success!';
+          setTimeout(() => {
+            processBtn.innerHTML = '<i class="fas fa-magic"></i> Create Text-Behind Effect';
+            processBtn.disabled = false;
+          }, 1500);
+        } catch (error) {
+          console.error('Error:', error);
+          showStatus('Background removal failed. Please check your API key or try again.', 'error');
+          objectImage.classList.add('hidden');
+          isProcessed = false;
+          downloadBtn.disabled = true;
+          processBtn.innerHTML = '<i class="fas fa-magic"></i> Create Text-Behind Effect';
+          processBtn.disabled = false;
+        }
+      }
+      
+      function showStatus(message, type) {
+        uploadStatus.textContent = message;
+        uploadStatus.className = `status ${type}`;
+        uploadStatus.classList.remove('hidden');
+        
+        if (type === 'success') {
+          setTimeout(() => {
+            uploadStatus.classList.add('hidden');
+          }, 5000);
+        }
+      }
+      
+      function downloadComposition() {
+        if (!originalImageUrl) {
+          showStatus('No image to download', 'error');
+          return;
+        }
+        
+        const canvas = document.createElement('canvas');
+        const preview = document.querySelector('.preview-container');
+        canvas.width = preview.offsetWidth * 2;
+        canvas.height = preview.offsetHeight * 2;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.scale(2, 2);
+        
+        // Fill with white background first
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw background image (original)
+        const bgImg = new Image();
+        bgImg.onload = function() {
+          const scale = Math.min(
+            (canvas.width/2) / bgImg.width,
+            (canvas.height/2) / bgImg.height
+          );
+          const width = bgImg.width * scale;
+          const height = bgImg.height * scale;
+          const x = ((canvas.width/2) - width) / 2;
+          const y = ((canvas.height/2) - height) / 2;
+          
+          ctx.drawImage(bgImg, x, y, width, height);
+          drawTextOnCanvas(ctx, canvas);
+        };
+        bgImg.src = originalImageUrl;
+      }
+      
+      function drawTextOnCanvas(ctx, canvas) {
+        // Draw text layer
+        const opacity = parseInt(textOpacity.value) / 100;
+        ctx.fillStyle = textColor.value;
+        ctx.globalAlpha = opacity;
+        ctx.font = `bold ${textSize.value}px ${fontFamily.value}`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        ctx.shadowBlur = 4;
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+        
+        const lines = textInput.value.split('\n');
+        const lineHeight = parseInt(textSize.value) * 1.2;
+        
+        // Calculate position based on sliders
+        const xPos = (textX.value / 100) * (canvas.width/2);
+        const yPos = (textY.value / 100) * (canvas.height/2);
+        
+        // Adjust for multiple lines
+        const startY = yPos - ((lines.length - 1) * lineHeight) / 2;
+        
+        lines.forEach((line, i) => {
+          ctx.fillText(line, xPos, startY + (i * lineHeight));
+        });
+        
+        // Reset context
+        ctx.globalAlpha = 1.0;
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        
+        // Draw foreground object (processed image) if available
+        if (isProcessed && processedImageUrl && !objectImage.classList.contains('hidden')) {
+          const objImg = new Image();
+          objImg.onload = function() {
+            const scale = Math.min(
+              (canvas.width/2) / objImg.width,
+              (canvas.height/2) / objImg.height
+            );
+            const width = objImg.width * scale;
+            const height = objImg.height * scale;
+            const x = ((canvas.width/2) - width) / 2;
+            const y = ((canvas.height/2) - height) / 2;
+            
+            ctx.drawImage(objImg, x, y, width, height);
+            triggerDownload(canvas);
+          };
+          objImg.src = processedImageUrl;
+        } else {
+          triggerDownload(canvas);
+        }
+      }
+      
+      function triggerDownload(canvas) {
+        const link = document.createElement('a');
+        link.download = 'text-behind-image-composition.png';
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      
+      // Initialize
+      updateText();
+      updateTextPosition();
+
+      // Mobile menu toggle functionality
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navLinks = document.querySelector(".nav-links");
+      const navbar = document.querySelector(".navbar");
+
+      menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          menuToggle.classList.remove("active");
+          navLinks.classList.remove("active");
+        });
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Initialize navbar scroll state
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      }
+    </script>
+  </body>
+</html>
