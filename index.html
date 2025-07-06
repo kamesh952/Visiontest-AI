@@ -211,51 +211,6 @@
       }
 
       /* Hero section */
-      .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 10rem 0;
-  min-height: 60vh;
-  position: relative;
-  overflow: hidden;
-  background: url("remove_image_background (1).jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-bottom: 3rem;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: rgb(34, 3, 126);
-  background-size: 400% 400%;
-  animation: gradientFlow 12s ease infinite;
-  z-index: 0;
-}
-
-.hero * {
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes gradientFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
 
       .hero h1 {
@@ -419,6 +374,64 @@
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
+        position: relative;
+        background: var(--white);
+        border-radius: var(--rounded-xl);
+        box-shadow: var(--shadow-lg);
+        padding: 2rem;
+        display: none;
+        transition: all 0.3s ease;
+      }
+
+      .preview-controls-container.active {
+        display: block;
+        animation: fadeInUp 0.5s ease;
+      }
+
+      .close-preview {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--gray-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        border: none;
+        color: var(--gray);
+        font-size: 1.2rem;
+      }
+
+      .close-preview:hover {
+        background: var(--error);
+        color: var(--white);
+        transform: rotate(90deg);
+      }
+
+      .preview-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--gray-light);
+      }
+
+      .preview-header h2 {
+        font-size: 1.5rem;
+        color: var(--dark);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .preview-header h2 i {
+        color: var(--primary);
       }
 
       /* Preview container */
@@ -431,7 +444,20 @@
         background: repeating-conic-gradient(#f8f9fa 0% 25%, white 0% 50%) 50%/20px 20px;
         overflow: hidden;
         box-shadow: var(--shadow);
-        display: none;
+        border: 1px solid var(--gray-light);
+      }
+
+      .preview-container::before {
+        content: "Preview Area";
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        padding: 4px 8px;
+        border-radius: var(--rounded-sm);
+        font-size: 0.8rem;
+        z-index: 5;
       }
 
       .layer {
@@ -480,7 +506,6 @@
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 24px;
         margin-bottom: 32px;
-        display: none;
       }
 
       .control-group {
@@ -490,11 +515,23 @@
         border: 1px solid rgba(168, 85, 247, 0.1);
         transition: all 0.3s ease;
         box-shadow: var(--shadow-sm);
+        position: relative;
       }
 
       .control-group:hover {
         transform: translateY(-5px);
         box-shadow: var(--shadow);
+      }
+
+      .control-group::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--primary), var(--accent));
+        border-radius: var(--rounded-lg) 0 0 var(--rounded-lg);
       }
 
       .control-title {
@@ -527,8 +564,9 @@
       }
 
       input[type="text"]:focus, input[type="number"]:focus, select:focus {
-        outline: none;
         border-color: var(--primary);
+                border: 2px solid var(--light-gray);
+
         box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
       }
 
@@ -560,11 +598,67 @@
         box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
       }
 
+      .position-controls {
+        display: grid;
+        gap: 16px;
+      }
+
+      .position-control {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .position-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
       .action-buttons {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 16px;
-        display: none;
+      }
+
+      .action-btn {
+        padding: 16px 24px;
+        border-radius: var(--rounded);
+        font-weight: 600;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-family: 'Outfit', sans-serif;
+      }
+
+      .remove-btn {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        box-shadow: var(--shadow);
+      }
+
+      .remove-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      }
+
+      .download-btn {
+        background: var(--white);
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+
+      .download-btn:hover {
+        background: var(--primary-light);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: var(--shadow);
       }
 
       .btn:disabled {
@@ -595,6 +689,17 @@
 
       @keyframes spin {
         to { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .hidden {
@@ -1151,7 +1256,7 @@
       <div class="container navbar-container">
         <a href="#" class="logo">
           <i class="fas fa-eye logo-icon"></i>
-          Vision<span>Text</span>
+          Vision<span>Text AI</span>
         </a>
 
         <div class="menu-toggle">
@@ -1172,24 +1277,233 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-      <div class="container">
-        <h1>Create Stunning Text-Behind-Image Designs</h1>
-        <p>
-          VisionText uses advanced AI to automatically create professional designs with text seamlessly integrated behind your subject. No design skills required!
-        </p>
-        <button
-          class="cta-btn pulse"
-          onclick="document.getElementById('imageUpload').click()"
-        >
-          <i class="fas fa-upload"></i> Upload Image Now
-        </button>
+    <!-- Hero Section with Fast Particles and Mobile Optimization -->
+<section class="hero" id="home">
+  <!-- Dark Animated Background -->
+  <div class="hero-background">
+    <div class="particles-container">
+      <!-- Rapidly moving particles (20 total) -->
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+      <div class="particle p5"></div>
+      <div class="particle p6"></div>
+      <div class="particle p7"></div>
+      <div class="particle p8"></div>
+      <div class="particle p9"></div>
+      <div class="particle p10"></div>
+      <div class="particle p11"></div>
+      <div class="particle p12"></div>
+      <div class="particle p13"></div>
+      <div class="particle p14"></div>
+      <div class="particle p15"></div>
+      <div class="particle p16"></div>
+      <div class="particle p17"></div>
+      <div class="particle p18"></div>
+      <div class="particle p19"></div>
+      <div class="particle p20"></div>
+      
+      <!-- Editing tool icons -->
+      <div class="tool-icon">
+        <i class="fas fa-sliders-h"></i>
       </div>
-    </section>
+      <div class="tool-icon">
+        <i class="fas fa-text-height"></i>
+      </div>
+      <div class="tool-icon">
+        <i class="fas fa-paint-brush"></i>
+      </div>
+      <div class="tool-icon">
+        <i class="fas fa-cut"></i>
+      </div>
+      <div class="tool-icon">
+        <i class="fas fa-layer-group"></i>
+      </div>
+      <div class="tool-icon">
+        <i class="fas fa-magic"></i>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h1>Create Stunning Text-Behind-Image Designs</h1>
+    <p>
+      VisionText uses advanced AI to automatically create professional designs with text seamlessly integrated behind your subject. No design skills required!
+    </p>
+    <button
+      class="cta-btn pulse"
+      onclick="document.getElementById('imageUpload').click()"
+    >
+      <i class="fas fa-upload"></i> Upload Image Now
+    </button>
+  </div>
+</section>
+
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .hero {
+    position: relative;
+    overflow: hidden;
+    color: white;
+    padding: 120px 20px;
+    text-align: center;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    z-index: -1;
+  }
+  
+  .particles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  /* Particles styling - faster and more visible */
+  .particle {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    animation: float 2s infinite linear;
+    filter: blur(0.5px);
+    will-change: transform;
+  }
+  
+  /* Individual particle animations - much faster */
+  .p1 { width: 2px; height: 2px; top: 10%; left: 5%; animation: float 1.5s infinite linear; }
+  .p2 { width: 3px; height: 3px; top: 20%; left: 15%; animation: float 1.8s infinite linear reverse; }
+  .p3 { width: 2px; height: 2px; top: 30%; left: 25%; animation: float 1.6s infinite linear; }
+  .p4 { width: 4px; height: 4px; top: 40%; left: 35%; animation: float 1.4s infinite linear reverse; }
+  .p5 { width: 3px; height: 3px; top: 50%; left: 45%; animation: float 1.7s infinite linear; }
+  .p6 { width: 2px; height: 2px; top: 60%; left: 55%; animation: float 1.9s infinite linear reverse; }
+  .p7 { width: 3px; height: 3px; top: 70%; left: 65%; animation: float 1.5s infinite linear; }
+  .p8 { width: 4px; height: 4px; top: 80%; left: 75%; animation: float 1.3s infinite linear reverse; }
+  .p9 { width: 2px; height: 2px; top: 90%; left: 85%; animation: float 1.8s infinite linear; }
+  .p10 { width: 3px; height: 3px; top: 30%; left: 90%; animation: float 1.6s infinite linear reverse; }
+  .p11 { width: 2px; height: 2px; top: 15%; left: 30%; animation: float 1.4s infinite linear; }
+  .p12 { width: 3px; height: 3px; top: 25%; left: 60%; animation: float 1.7s infinite linear reverse; }
+  .p13 { width: 4px; height: 4px; top: 45%; left: 20%; animation: float 1.5s infinite linear; }
+  .p14 { width: 2px; height: 2px; top: 55%; left: 80%; animation: float 1.9s infinite linear reverse; }
+  .p15 { width: 3px; height: 3px; top: 65%; left: 40%; animation: float 1.6s infinite linear; }
+  .p16 { width: 2px; height: 2px; top: 75%; left: 10%; animation: float 1.4s infinite linear reverse; }
+  .p17 { width: 4px; height: 4px; top: 85%; left: 50%; animation: float 1.8s infinite linear; }
+  .p18 { width: 3px; height: 3px; top: 35%; left: 70%; animation: float 1.5s infinite linear reverse; }
+  .p19 { width: 2px; height: 2px; top: 5%; left: 50%; animation: float 1.7s infinite linear; }
+  .p20 { width: 3px; height: 3px; top: 95%; left: 30%; animation: float 1.3s infinite linear reverse; }
+  
+  /* Tool icons styling */
+  .tool-icon {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 24px;
+    animation: float 15s infinite ease-in-out;
+    will-change: transform;
+  }
+  
+  .tool-icon:nth-child(21) { top: 15%; left: 10%; animation-delay: 0s; }
+  .tool-icon:nth-child(22) { top: 25%; left: 80%; animation-delay: 3s; }
+  .tool-icon:nth-child(23) { top: 65%; left: 15%; animation-delay: 6s; }
+  .tool-icon:nth-child(24) { top: 75%; left: 70%; animation-delay: 9s; }
+  .tool-icon:nth-child(25) { top: 45%; left: 50%; animation-delay: 12s; }
+  .tool-icon:nth-child(26) { top: 35%; left: 30%; animation-delay: 15s; }
+  
+  /* Faster animation for particles */
+  @keyframes float {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(80px, 40px) rotate(15deg);
+    }
+    50% {
+      transform: translate(160px, 0) rotate(0deg);
+    }
+    75% {
+      transform: translate(80px, -40px) rotate(-15deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+  }
+  
+  /* Container styling */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* CTA button */
+  .cta-btn {
+    background: linear-gradient(45deg, #8e2de2, #4a00e0);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 80px 15px;
+      margin-left: calc(-50vw + 50%);
+      width: 100vw;
+    }
+    
+    .container {
+      padding: 0 15px;
+    }
+    
+    h1 {
+      font-size: 28px;
+    }
+    
+    p {
+      font-size: 16px;
+    }
+    
+    .cta-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+    }
+    
+    /* Adjust particles for mobile */
+    .particle {
+      animation-duration: 1s !important;
+    }
+    
+    .tool-icon {
+      font-size: 18px;
+    }
+  }
+</style>
 
     <!-- Editor Section -->
-    <div class="container">
-      <div class="editor-section" id="editor">
+    <div class="container"id="editor">
+      <div class="editor-section" >
         <!-- Example Image Section -->
         <div class="image-section">
           <div class="image-wrapper">
@@ -1236,7 +1550,15 @@
       </div>
 
       <!-- Preview and Controls Container -->
-      <div class="preview-controls-container">
+      <div class="preview-controls-container" id="previewControlsContainer">
+        <button class="close-preview" onclick="closePreview()">
+          <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="preview-header">
+          <h2><i class="fas fa-sliders-h"></i> Design Editor</h2>
+        </div>
+
         <div class="preview-container" id="previewContainer">
           <!-- Background Layer (z-index: 1) -->
           <div class="layer" id="backgroundLayer">
@@ -1340,33 +1662,248 @@
         <p>See how VisionText can transform your images for various purposes</p>
       </div>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <i class="fas fa-shopping-bag feature-icon"></i>
-          <h3>E-commerce Products</h3>
-          <p>
-            Create eye-catching product images with text behind your items to highlight promotions or features.
-          </p>
-          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" class="feature-image" alt="E-commerce use case">
-        </div>
+       
 
-        <div class="feature-card">
-          <i class="fas fa-portrait feature-icon"></i>
-          <h3>Portrait Photography</h3>
-          <p>
-            Add depth to your portraits by placing text behind your subject for a professional look.
-          </p>
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" class="feature-image" alt="Portrait use case">
-        </div>
+        <div class="comparison-container">
+            <div class="comparison-card">
+                <div class="comparison">
+                    <img src="image (2).png" alt="After">
+                    <img src="Make-Trip-Adventure-Blog-Image.jpg" alt="Before" class="before">
+                    <div class="slider"></div>
+                </div>
+                <div class="comparison-info">
+                    <h3>Example Comparison 1</h3>
+                    <p>This shows the difference between the original image and the edited version.</p>
+                </div>
+            </div>
 
-        <div class="feature-card">
-          <i class="fas fa-ad feature-icon"></i>
-          <h3>Marketing Materials</h3>
-          <p>
-            Create stunning visuals for ads, social media, and presentations with text behind your main subject.
-          </p>
-          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1099&q=80" class="feature-image" alt="Marketing use case">
+            <div class="comparison-card">
+                <div class="comparison">
+                    <img src="Bungee-Jumping-in-India.jpg" alt="After">
+                    <img src="image.png" alt="Before" class="before">
+                    <div class="slider"></div>
+                </div>
+                <div class="comparison-info">
+                    <h3>Example Comparison 2</h3>
+                    <p>Drag the slider to see the transformation from the original to the final result.</p>
+                </div>
+            </div>
+
+            <div class="comparison-card">
+                <div class="comparison">
+                    <img src="image (1).png" alt="After">
+                    <img src="p07jb2ym.jpg" alt="Before" class="before">
+                    <div class="slider"></div>
+                </div>
+                <div class="comparison-info">
+                    <h3>Example Comparison 3</h3>
+                    <p>See how the image changes when you move the slider from left to right.</p>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <script>
+        // Initialize image comparison sliders
+        function initializeSliders() {
+            const sliders = document.querySelectorAll(".slider");
+
+            sliders.forEach((slider) => {
+                const comparison = slider.parentElement;
+                const before = comparison.querySelector(".before");
+
+                let isDragging = false;
+
+                function updateSlider(position) {
+                    const rect = comparison.getBoundingClientRect();
+                    let offset = ((position - rect.left) / rect.width) * 100;
+                    offset = Math.max(0, Math.min(100, offset));
+                    before.style.clipPath = `inset(0 ${100 - offset}% 0 0)`;
+                    slider.style.left = `${offset}%`;
+                }
+
+                function startDragging(event) {
+                    isDragging = true;
+                    event.preventDefault(); // Prevent text selection
+                    updateSlider(event.pageX || event.touches[0].pageX);
+                }
+
+                function stopDragging() {
+                    isDragging = false;
+                }
+
+                function drag(event) {
+                    if (!isDragging) return;
+                    updateSlider(event.pageX || event.touches[0].pageX);
+                }
+
+                // Mouse events
+                slider.addEventListener("mousedown", startDragging);
+                document.addEventListener("mouseup", stopDragging);
+                document.addEventListener("mousemove", drag);
+
+                // Touch events (for mobile support)
+                slider.addEventListener("touchstart", startDragging);
+                document.addEventListener("touchend", stopDragging);
+                document.addEventListener("touchmove", drag);
+
+                // Handle window resize
+                window.addEventListener("resize", () => {
+                    const rect = comparison.getBoundingClientRect();
+                    const sliderPos = parseFloat(slider.style.left || "50");
+                    updateSlider(rect.left + (rect.width * sliderPos) / 100);
+                });
+            });
+        }
+
+        // Initialize everything when the page loads
+        window.addEventListener("DOMContentLoaded", function () {
+            initializeSliders();
+        });
+    </script>
+    <style>
+       :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --white: #ffffff;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --rounded-xl: 1.25rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+      
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .comparison-card {
+            background: var(--white);
+            border-radius: var(--rounded-xl);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .comparison {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .comparison img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comparison .before {
+            clip-path: inset(0 50% 0 0);
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--white);
+            cursor: ew-resize;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider::after {
+            content: "↔";
+            position: absolute;
+            top: 50%;
+            left: -12px;
+            color: var(--white);
+            font-size: 1.5rem;
+            transform: translateY(-50%);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .comparison-info {
+            padding: 1.75rem;
+        }
+
+        .comparison-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .comparison-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .instructions {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--rounded-xl);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .instructions h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .instructions ol {
+            padding-left: 1.5rem;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .comparison {
+                height: 200px;
+            }
+        }
+    </style>
       </div>
     </div>
 
@@ -1553,6 +2090,7 @@
       const xValue = document.getElementById('xValue');
       const yValue = document.getElementById('yValue');
       const previewContainer = document.getElementById('previewContainer');
+      const previewControlsContainer = document.getElementById('previewControlsContainer');
       const controls = document.getElementById('controls');
       const actionButtons = document.getElementById('actionButtons');
       
@@ -1657,10 +2195,7 @@
           `;
           
           // Show preview and controls
-          previewContainer.style.display = 'block';
-          controls.style.display = 'grid';
-          actionButtons.style.display = 'grid';
-          
+          previewControlsContainer.classList.add('active');
           showStatus('Image loaded! Click "Create Text-Behind Effect" to process.', 'info');
         };
         reader.readAsDataURL(file);
@@ -1851,6 +2386,10 @@
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+      }
+      
+      function closePreview() {
+        previewControlsContainer.classList.remove('active');
       }
       
       // Initialize
